@@ -101,15 +101,22 @@ public class HelloTest {
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-<!-- 通过ID定义 -->
-<!--  
-<bean id="hello" class="xyz.javass.spring.helloworld.HelloImpl"></bean>-->
+<!-- 通过ID定义 --> 
+<bean id="hello" class="xyz.javass.spring.helloworld.HelloImpl"></bean>
 <!-- 通过全类名定义 -->
-<!-- 
-<bean class="xyz.javass.spring.helloworld.HelloImpl"></bean>-->
+<bean class="xyz.javass.spring.helloworld.HelloImpl"></bean>
 <!-- 通过名称定义 -->
-<bean name="hello" class="xyz.javass.spring.helloworld.HelloImpl"></bean>
+<bean name="hello2" class="xyz.javass.spring.helloworld.HelloImpl"></bean>
+<!-- 通过ID和别名定义定义 -->
+<bean  id="hello1" name="h1" class="xyz.javass.spring.helloworld.HelloImpl"/>
+<!-- 通过多个别名，第一个别名是用做标识符号 -->
+<bean  name="h2,h3,h4,h5" class="xyz.javass.spring.helloworld.HelloImpl"/>
+<!-- 别名和ID不能重复否则容器会自动消除重复-->
+<bean  name="h6" id="h6" class="xyz.javass.spring.helloworld.HelloImpl"/>
 </beans>
+
+
+
 ```
 ### 文件结构
 ![enter description here](./images/1526056206805.jpg)
