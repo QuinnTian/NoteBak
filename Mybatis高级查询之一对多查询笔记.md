@@ -1,8 +1,9 @@
 ---
-title: Mybatis高级查询之一对多查询笔记
+title: Mybatis高级查询之一对多查询的两种方法（笔记）
 tags: 新建,模板,小书匠
 grammar_cjkRuby: true
 ---
+[toc]
 ### 2.1 使用**collection**嵌套结果映射
  - 假设如下场景，一个用户有多个角色，一个角色有多个权限。
 ![enter description here](https://www.github.com/QuinnTian/imgchr/raw/master/imgs/1556087075229.png)
@@ -18,7 +19,7 @@ grammar_cjkRuby: true
  - 我们查出来两个用户，第一个用户有两个角色。
  - 接下来看输出日志
  ![enter description here](https://www.github.com/QuinnTian/imgchr/raw/master/imgs/1556088051095.png)
- ### 2.1.2 结果自动合并的情况
+ #### 2.1.2 结果自动合并的情况
  - SQL执行结果三条但是用户数最后却只有两个，也就是说collection处理后变成了两条。因为第一个用户又拥有两个角色，经过转换为一对多数据结构后就变成了两个，毋庸置疑的。理解这个**转换过程**至关重要。
  - 为什么会自动合并用户1的两条查询结果呢？因为用户表是通过ID来判断用户是否相同的。所以MyBatis合并的依据是在
  **在resultMap**中配置了**ID字段**。如下图所示：![enter description here](https://www.github.com/QuinnTian/imgchr/raw/master/imgs/1556088357996.png)
