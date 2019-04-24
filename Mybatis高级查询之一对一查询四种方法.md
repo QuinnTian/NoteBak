@@ -7,7 +7,7 @@ grammar_cjkRuby: true
 
 ## 1. 一对一查询
 
-> 1.1-1.3 我们假设场景为用户和角色一对一，根据数据库基本原理，我们把外键设置在用户一边，即在实体类中添加角色这个属性。
+> 1.1-1.3 我们假设场景为用户和角色一对一，根据数据库基本原理，我们把外键设置在用户一边，即在实体类中添加角色这个属性。1.1-1.3是一种映射查询而1.4是一种嵌套查询。
 
 ### 1.1 一对一自动映射处理查询
 #### 1.1.1嵌套结果查询的核心思想
@@ -26,13 +26,13 @@ grammar_cjkRuby: true
  
  ### 1.2 使用resultMap配置一对一映射查询
  #### 1.2.1 具体应用过程
- 我们在1.1中使用的方法是直接在**select标签中**直接写后**自动映射**到实体类，**resultType**返回类型是一个实体类。还有一种方法是在xml文件中的<resultMap>标签配置关系，然后再在select的**resultType**指定返回resultMap。详细如图所示：
+ 我们在1.1中使用的方法是直接在**select标签中**直接写后**自动映射**到实体类，**resultType**返回类型是一个实体类。还有一种方法是在xml文件中的`resultMap`标签配置关系，然后再在select的**resultType**指定返回resultMap。详细如图所示：
  ![enter description here](./images/1556029543657.png)
- **property**是实体类字段名，**colum**是数据库字段名。此处**resultMap**这个标签是定义了一种**映射关系集合**,这个集合的类型对应实体类User,所以**type**指定了一个实体类。同样我们在property中仍可以使用**别名**.字段的方法，同1.1。
+ **property**是实体类字段名，**colum**是数据库字段名。此处**resultMap**这个标签是定义了一种**映射关系集合**,这个集合的类型对应实体类User,所以`resultMap`**type**指定了一个实体类。同样我们在property中仍可以使用**别名**.字段的方法，同1.1。
  那么我们来看，**select语句**是怎么写的。
 ![enter description here](./images/1556034087529.png)
  #### 1.2.2 注意事项
- **注意**的是：去掉了数据库字段，直接用实体类属性查询。至于那个**别名问题**，暂时还没有想到会出现的场景，只需记住若是使用别名**别名和resultMap的column一致**。
+ **注意**的是：去掉了数据库字段，直接用实体类属性查询。至于那个**别名问题**，暂时还没有想到会出现的场景，只需记住若是**使用别名****别名和resultMap的column一致**。
  #### 1.2.3 简化写法
  首先我们看这张图
  ![enter description here](./images/1556032048245.png)
@@ -45,7 +45,7 @@ grammar_cjkRuby: true
  - 在这里我们使用了association那么**property**中就直接写**属性名**就可以。
  - 这里我们配置了**列的前缀**，则在**Column**就可以省略，但是**select**就要更改如下。
  ![enter description here](./images/1556034409791.png)
- - 关于**association**的**resultMap**属性应用场景
+ - 关于**association标签**的**resultMap**属性应用场景
  我们可以把角色的关联单独拿出来。
  ![enter description here](./images/1556034559072.png)
  把这部分单独放到一个resultMap标签中，然后直接代用即可。
@@ -53,7 +53,7 @@ grammar_cjkRuby: true
 	 - 注意事项
 	 - 同xml可以使用ID，不在同一xml用全类名+ID如上图。
 	 
-### 1.4 association标签查询（懒加载）
+### 1.4 association标签嵌套查询（懒加载）
 
 > 此处我们假设场景是新的，用户和博客存在一对一关系，按照数据库设计的基本原理，我们再user中设置外键指向blog表，对应实体类就是user类中增加Blog类型的blog属性。
 
